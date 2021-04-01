@@ -1,9 +1,9 @@
 <?php
 
-require_once("empleado.php");
+require_once("./Clases/empleado.php");
 
 $path = "./archivos/empleados.txt";
-$modo = "r";
+$modo = "r+";
 
 $archivo = fopen($path, $modo);
 
@@ -14,7 +14,7 @@ echo "<!DOCTYPE html>
     <title>Mostrar Empleados</title>
 </head>
 <body>
-<h2>Mostrar</h2>
+<h2 align=\"center\">Mostrar</h2>
 <table align=\"center\">
     <tr><td>Listado de empleados</td></tr>
     <tr><td colspan='10'><hr></td></tr>

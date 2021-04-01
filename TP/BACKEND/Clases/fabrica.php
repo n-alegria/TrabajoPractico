@@ -6,7 +6,7 @@ require_once "interfaces.php";
 class Fabrica implements IArchivo{
     # Atributos
     private $cantidadMaxima;
-    private $empleados;
+    public $empleados;
     private $razonSocial;
 
     # Constructor
@@ -85,7 +85,7 @@ class Fabrica implements IArchivo{
     public function GuardarEnArchivo($nombreArchivo)
     {
         // Abro el archivo
-        $archivo = fopen($nombreArchivo, "r+");
+        $archivo = fopen($nombreArchivo, "w+");
         // Recorro el array de empleados y los obtengo individualmente
         foreach ($this->empleados as $empleado) {
             // Utilizo 'fwrite()' para escribirlos en el archivo
