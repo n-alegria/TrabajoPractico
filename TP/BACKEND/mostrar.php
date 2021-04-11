@@ -3,12 +3,11 @@
 require_once("./Clases/empleado.php");
 
 $path = "./archivos/empleados.txt";
-$modo = "r+";
 
-$archivo = fopen($path, $modo);
+$archivo = fopen($path, "r+");
 
 echo "<!DOCTYPE html>
-<html lang=\"en\">
+<html lang=\"es\">
 <head>
     <meta charset=\"UTF-8\">
     <title>Mostrar Empleados</title>

@@ -22,22 +22,35 @@ while(!feof($archivo)){
 }
 fclose($archivo);
 
+echo "<!DOCTYPE html>
+<html lang=\"es\">
+<head>
+    <meta charset=\"UTF-8\">
+    <title>Eliminar</title>
+</head>
+<body>";
+
 if($bandera){
     $empleado = new Empleado($arrayEmpleado[0], $arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
     $fabrica = new Fabrica("Cosan", 7);
     $fabrica->TraerDeArchivo($path);
     if($fabrica->EliminarEmpleado($empleado)){
         $fabrica->GuardarEnArchivo($path);
+        echo "<b>Se elimino con exito el empleado</b><br/>";
     }
     else{
-        echo "<b>No se pudo eliminar al empleado</b>";
+        echo "<b>No se pudo eliminar al empleado</b><br/>";
     }
 }
 else{
-    echo "No hay empleado con el legajo ingresado.<br/>";
+    echo "<b>No hay empleado con el legajo ingresado.</b><br/><br/>";
 }
 
 echo "<a href=\"./mostrar.php\">Mostrar</a><br/>";
-echo "<a href=\"../FRONTEND/index.html\">Inicio</a>";
+echo "<a href=\"../FRONTEND/index.html\">Alta empleado</a>";
 
+echo "
+</body>
+</html>
+";
 ?>

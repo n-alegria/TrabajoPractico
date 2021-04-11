@@ -16,18 +16,17 @@ $fabrica = new Fabrica("Cosan", 7);
 $path = "./archivos/empleados.txt";
 
 echo "<!DOCTYPE html>
-<html lang=\"en\">
+<html lang=\"es\">
 <head>
     <meta charset=\"UTF-8\">
     <title>Administracion</title>
 </head>
 <body>
 
-<h2>Administracion</h2>";
+<h2 style=\"text-align: center;\">Administracion</h2>";
 
 $fabrica->TraerDeArchivo($path);
 if($fabrica->AgregarEmpleado($nuevoEmpleado)){
-    echo $fabrica->ToString();
     $fabrica->GuardarEnArchivo($path);
     echo "<a href=\"./mostrar.php\">Mostrar</a>";
 }
