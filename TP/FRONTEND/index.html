@@ -17,7 +17,7 @@
                     <h4>Datos Personales</h4>
                 </td>
             </tr>
-            <!-- Division Horizontal -->
+            <!-- Division horizontal -->
             <tr>
                 <td colspan="2">
                     <hr />
@@ -28,17 +28,24 @@
                 <td><label for="txtDni">DNI:</label></td>
                 <td>
                     <input type="number" id="txtDni" name="txtDni" min="1000000" max="55000000" />
+                    <span style="display: none;">*</span>
                 </td>
             </tr>
             <!-- Input: Apellido -->
             <tr>
                 <td><label for="txtApellido">Apellido:</label></td>
-                <td><input type="text" id="txtApellido" name="txtApellido" /></td>
+                <td>
+                    <input type="text" id="txtApellido" name="txtApellido" />
+                    <span style="display: none;">*</span>
+                </td>
             </tr>
-            <!-- Input: No,bre -->
+            <!-- Input: Nombre -->
             <tr>
                 <td><label for="txtNombre">Nombre:</label></td>
-                <td><input type="text" id="txtNombre" name="txtNombre" /></td>
+                <td>
+                    <input type="text" id="txtNombre" name="txtNombre" />
+                    <span style="display: none;">*</span>
+                </td>
             </tr>
             <!-- ComboBox: Sexo -->
             <tr>
@@ -49,6 +56,7 @@
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                     </select>
+                    <span style="display: none;">*</span>
                 </td>
             </tr>
             <!-- Titulo: Datos Laborales -->
@@ -66,12 +74,18 @@
             <!-- Input: Legajo -->
             <tr>
                 <td><label for="txtLegajo">Legajo:</label></td>
-                <td><input type="number" id="txtLegajo" name="txtLegajo" min="100" max="550"></td>
+                <td>
+                    <input type="number" id="txtLegajo" name="txtLegajo" min="100" max="550">
+                    <span style="display: none;">*</span>
+                </td>
             </tr>
             <!-- Input: Sueldo -->
             <tr>
                 <td><label for="txtSueldo">Sueldo:</label></td>
-                <td><input type="number" name="txtSueldo" id="txtSueldo" min="8000" step="500"></td>
+                <td>
+                    <input type="number" name="txtSueldo" id="txtSueldo" min="8000" step="500">
+                    <span style="display: none;">*</span>
+                </td>
             </tr>
             <!-- Radio: Turno -->
             <tr>
@@ -79,9 +93,9 @@
             </tr>
             <tr>
                 <td style="text-align:left; padding-left:50px">
-                    <input type="radio" name="rdoTurno" value="Mañana" id='rdoTurnoMañana' checked>Mañana<br/>
-                    <input type="radio" name="rdoTurno" value="Tarde" id='rdoTurnoTarde'>Tarde<br/>
-                    <input type="radio" name="rdoTurno" value="Noche" id='rdoTurnoNoche'>Noche<br/>
+                    <input type="radio" name="rdoTurno" value="M" id='rdoTurnoMañana' checked>Mañana<br/>
+                    <input type="radio" name="rdoTurno" value="T" id='rdoTurnoTarde'>Tarde<br/>
+                    <input type="radio" name="rdoTurno" value="N" id='rdoTurnoNoche'>Noche<br/>
                 </td>
             </tr>
             <!-- Division horizontal -->
