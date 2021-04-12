@@ -14,26 +14,29 @@ $nuevoEmpleado = new Empleado(ucfirst($nombre), ucfirst($apellido), $dni, $sexo,
 $fabrica = new Fabrica("Cosan", 7);
 
 $path = "./archivos/empleados.txt";
+?>
 
-echo "<!DOCTYPE html>
-<html lang=\"es\">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset=\"UTF-8\">
+    <meta charset="UTF-8">
     <title>Administracion</title>
 </head>
 <body>
 
-<h2 style=\"text-align: center;\">Administracion</h2>";
+<h2>Administracion</h2>
 
+<?php
 $fabrica->TraerDeArchivo($path);
 if($fabrica->AgregarEmpleado($nuevoEmpleado)){
     $fabrica->GuardarEnArchivo($path);
-    echo "<a href=\"./mostrar.php\">Mostrar</a>";
+    echo "<a href='./mostrar.php'>Mostrar</a>";
 }
 else{
     echo "Error al ingresar al empleado<br/>";
-    echo "<a href=\"../FRONTEND/index.html\">Pagina Principal</a>";
+    echo "<a href='../FRONTEND/index.html'>Pagina Principal</a>";
 }
-    
-echo "</body>
-</html>";
+?>
+
+</body>
+</html>

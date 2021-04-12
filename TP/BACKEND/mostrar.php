@@ -3,22 +3,31 @@
 require_once("./Clases/empleado.php");
 
 $path = "./archivos/empleados.txt";
+$archivo = fopen($path, "r");
 
-$archivo = fopen($path, "r+");
+?>
 
-echo "<!DOCTYPE html>
-<html lang=\"es\">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset=\"UTF-8\">
-    <title>Mostrar Empleados</title>
+    <meta charset="UTF-8">
+    <title>HTML 5 - Listado de Empleados</title>
 </head>
 <body>
-<h2 align=\"center\">Mostrar</h2>
-<table align=\"center\">
-    <tr><td>Listado de empleados</td></tr>
-    <tr><td colspan='10'><hr></td></tr>
-";
+<h2>Listado de Empleados</h2>
+<table align="center">
+    <tr>
+        <td>
+            <h4>Info</h4>
+        </td>
+    </tr>
+    <tr>
+        <td colspan='2'>
+            <hr>
+        </td>
+    </tr>
 
+ <?php
 while(!feof($archivo)){
     // 'trim()' -> elimina espacios en blanco al inicio y final de la cadena
     $unEmpleado = trim(fgets($archivo));
@@ -32,9 +41,11 @@ while(!feof($archivo)){
     }
 }
 fclose($archivo);
-echo "<tr><td align=right><a href=\"../FRONTEND/index.html\">Alta Empleado</a></td></tr>";
+echo "<tr><td colspan='2'><hr></td></tr>";
+echo "<tr><td><a href=\"../FRONTEND/index.html\">Alta Empleado</a></td></tr>";
 
-echo "
+?>
+
 </table>
 </body>
-</html>";
+</html>
