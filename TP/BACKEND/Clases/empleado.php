@@ -6,6 +6,7 @@ class Empleado extends Persona{
     protected $legajo;
     protected $sueldo;
     protected $turno;
+    protected $pathFoto;
 
     # Constructor
     public function __construct($nombre, $apellido, $dni, $sexo, $legajo, $sueldo, $turno){
@@ -28,6 +29,13 @@ class Empleado extends Persona{
         return $this->turno;
     }
 
+    public function GetPathFoto(){
+        return $this->pathFoto;
+    }
+
+    public function SetPathFoto($foto){
+        $this->pathFoto = $foto;
+    }
     # Metodos
     public function Hablar($idiomas)
     {
@@ -41,7 +49,7 @@ class Empleado extends Persona{
 
     public function ToString()
     {
-        return parent::ToString(). " - " . $this->legajo . " - " . $this->sueldo . " - " . ucfirst($this->turno);
+        return parent::ToString(). " - " . $this->GetLegajo() . " - " . $this->GetSueldo() . " - " . $this->GetTurno() . " - " . $this->GetPathFoto();
     }
 }
 

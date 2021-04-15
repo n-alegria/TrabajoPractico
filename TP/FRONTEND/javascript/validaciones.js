@@ -52,6 +52,14 @@ function AdministrarValidaciones() {
     else {
         AdministrarSpanError("txtSueldo", false);
     }
+    // Validacion "fileFoto"
+    if (!ValidarCamposVacios("fileFoto")) {
+        AdministrarSpanError("fileFoto", true);
+        retorno = false;
+    }
+    else {
+        AdministrarSpanError("fileFoto", false);
+    }
     return retorno;
 }
 function ValidarCamposVacios(idcampo) {

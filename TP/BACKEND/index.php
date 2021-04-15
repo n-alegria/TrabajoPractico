@@ -1,15 +1,20 @@
+<?php
+require_once("./validarSesion.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <title>HTML 5 - Formulario Alta Empleado</title>
-    <script src="javascript/funciones.js"></script>
+    <script src="../FRONTEND/javascript/funciones.js"></script>
 </head>
 
 <body>
     <h2 style="text-align: center;">Alta de Empleados</h2>
-    <form action="../BACKEND/administracion.php" method="POST" onsubmit="return AdministrarValidaciones()">
+    <form action="../BACKEND/administracion.php" method="POST" enctype="multipart/form-data" onsubmit="return AdministrarValidaciones()">
         <table align="center">
             <!-- Titulo: Datos Personales -->
             <tr>
@@ -98,6 +103,14 @@
                     <input type="radio" name="rdoTurno" value="N" id='rdoTurnoNoche'>Noche<br/>
                 </td>
             </tr>
+            <!-- Files -->
+            <tr>
+                <td><label for="fileFoto">Foto:</label></td>
+                <td>
+                    <input type="file" name="fileFoto" id="fileFoto">
+                    <span style="display:none">*</span>
+                </td>
+            </tr>
             <!-- Division horizontal -->
             <tr>
                 <td colspan="2">
@@ -113,6 +126,11 @@
             <tr>
                 <td colspan="2" align="right">
                     <input type="submit" value="Enviar" id="btnEnviar" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="./cerrarSesion.php">Cerrar Sesion</a>
                 </td>
             </tr>
         </table>
