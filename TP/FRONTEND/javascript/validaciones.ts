@@ -168,3 +168,10 @@ function VerificarValidacionesLogin() : boolean{
     }
     return retorno;
 }
+
+///////////////////////////////////////////////////////////////////////////
+
+function AdministrarModificar(dniEmpleado : string) : void{
+    (<HTMLInputElement>document.getElementById("hiddenModificar")).value = dniEmpleado;
+    (<HTMLFormElement>document.getElementById("formModificar")).submit();
+}

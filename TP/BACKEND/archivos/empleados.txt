@@ -1,3 +1,2 @@
-jua - fernandez - 11223344 - M - 150 - 8500 - M - 
-manuel - lopez - 22334455 - M - 250 - 12500 - T - 
- -  -  - --- -  -  - M - 
+nes - ale - 11223344 - M - 100 - 8000 - M - ./fotos/11223344-ale.JPG
+cos - fer - 44559988 - F - 250 - 9000 - T - ./fotos/44559988-fer.JPG

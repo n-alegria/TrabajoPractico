@@ -5,7 +5,7 @@ require_once "./Clases/fabrica.php";
 $legajo = $_GET["legajo"];
 
 $path = "./archivos/empleados.txt";
-$modo = "r+";
+$modo = "r";
 $bandera = false;
 
 $archivo = fopen($path, $modo);
@@ -32,9 +32,11 @@ echo "<!DOCTYPE html>
 
 if($bandera){
     $empleado = new Empleado($arrayEmpleado[0], $arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
+    $empleado->SetPathFoto($arrayEmpleado[7]);
     $fabrica = new Fabrica("Cosan", 7);
     $fabrica->TraerDeArchivo($path);
     if($fabrica->EliminarEmpleado($empleado)){
+        unlink($empleado->GetPathFoto());
         $fabrica->GuardarEnArchivo($path);
         echo "<b>Se elimino con exito el empleado</b><br/>";
     }
@@ -47,7 +49,7 @@ else{
 }
 
 echo "<a href=\"./mostrar.php\">Mostrar</a><br/>";
-echo "<a href=\"../FRONTEND/index.html\">Alta empleado</a>";
+echo "<a href=\"./index.php\">Alta empleado</a>";
 
 echo "
 </body>

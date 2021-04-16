@@ -23,7 +23,7 @@ fclose($archivo);
 
 if(!$existeUsuario){
     echo "No existe el empleado.<br/>";
-    echo "<a href='login.html'>Login</a>";
+    echo "<a href='../FRONTEND/login.html'>Login</a>";
 }
 
 

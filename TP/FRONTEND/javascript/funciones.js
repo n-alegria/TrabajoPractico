@@ -148,3 +148,8 @@ function VerificarValidacionesLogin() {
     }
     return retorno;
 }
+///////////////////////////////////////////////////////////////////////////
+function AdministrarModificar(dniEmpleado) {
+    document.getElementById("hiddenModificar").value = dniEmpleado;
+    document.getElementById("formModificar").submit();
+}

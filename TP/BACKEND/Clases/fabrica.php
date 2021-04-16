@@ -37,14 +37,12 @@ class Fabrica implements IArchivo{
     }
 
     public function EliminarEmpleado($emp){
-        $retorno = false;
-        foreach ($this->empleados as $index => $empleado) {
-            if($emp == $empleado){
-                unset($this->empleados[$index]);
-                $retorno = true;
-            }
-        }
-        return $retorno;
+       $index = array_search($emp, $this->GetEmpleados());
+       if($index !== false){
+           unset($this->empleados[$index]);
+           return true;
+       }
+       return false;
     }
 
     private function EliminarEmpleadosRepetidos(){
@@ -62,6 +60,10 @@ class Fabrica implements IArchivo{
         return $retorno;
     }
 
+    public function GetEmpleados(){
+        return $this->empleados;
+    }
+
     # Implementacion Interfaz
     public function TraerDeArchivo($nombreArchivo)
     {   
@@ -75,6 +77,7 @@ class Fabrica implements IArchivo{
                 $arrayEmpleado = explode(" - ", $unEmpleado);
                 // Creo un nuevo empleado y lo agrego a la fabrica
                 $nuevoEmpleado = new Empleado($arrayEmpleado[0], $arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[3],$arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
+                $nuevoEmpleado->SetPathFoto($arrayEmpleado[7]);
                 $this->AgregarEmpleado($nuevoEmpleado);
             }
         }

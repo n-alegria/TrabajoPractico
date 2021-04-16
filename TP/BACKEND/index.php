@@ -1,5 +1,39 @@
 <?php
 require_once("./validarSesion.php");
+require_once("./Clases/fabrica.php");
+
+$tituloPagina = 'HTML 5 - Formulario Alta Empleado';
+$titulo = 'Alta de Empleados';
+$dniUsuario = null;
+$apellidoUsuario = null;
+$nombreUsuario = null;
+$sexoUsuario = null;
+$legajoUsuario = null;
+$sueldoUsuario = null;
+$turnoUsuario = null;
+$fotoUsuario = null;
+
+if(isset($_POST['hiddenModificar'])){
+    $dni = $_POST['hiddenModificar'];
+    $fabrica = new Fabrica("Cosan", 7);
+    $fabrica->TraerDeArchivo('./archivos/empleados.txt');
+    $arrayEmpleados = $fabrica->GetEmpleados();
+    foreach ($arrayEmpleados as $empleado) {
+        if($dni == $empleado->GetDni()){
+            $tituloPagina = 'HTML5 Formulario Modificar Empleado';
+            $titulo = 'Modificar Empleado';
+            $dniUsuario = $empleado->GetDni();
+            $apellidoUsuario = $empleado->GetApellido();
+            $nombreUsuario = $empleado->GetNombre();
+            $sexoUsuario = $empleado->GetSexo();
+            $legajoUsuario = $empleado->GetLegajo();
+            $sueldoUsuario = $empleado->GetSueldo();
+            $turnoUsuario = $empleado->GetTurno();
+            $fotoUsuario = $empleado->GetPathFoto();
+            break;
+        }
+    }
+}
 
 ?>
 
@@ -8,12 +42,12 @@ require_once("./validarSesion.php");
 
 <head>
     <meta charset="UTF-8" />
-    <title>HTML 5 - Formulario Alta Empleado</title>
+    <title><?php echo $tituloPagina ?></title>
     <script src="../FRONTEND/javascript/funciones.js"></script>
 </head>
 
 <body>
-    <h2 style="text-align: center;">Alta de Empleados</h2>
+    <h2 style="text-align: center;" id="tituloForm"><?php echo $titulo ?></h2>
     <form action="../BACKEND/administracion.php" method="POST" enctype="multipart/form-data" onsubmit="return AdministrarValidaciones()">
         <table align="center">
             <!-- Titulo: Datos Personales -->
@@ -32,7 +66,7 @@ require_once("./validarSesion.php");
             <tr>
                 <td><label for="txtDni">DNI:</label></td>
                 <td>
-                    <input type="number" id="txtDni" name="txtDni" min="1000000" max="55000000" />
+                    <input type="number" id="txtDni" name="txtDni" min="1000000" max="55000000" <?php if($dniUsuario != null){ echo "value='{$dniUsuario}' readonly"; }?>/>
                     <span style="display: none;">*</span>
                 </td>
             </tr>
@@ -40,7 +74,7 @@ require_once("./validarSesion.php");
             <tr>
                 <td><label for="txtApellido">Apellido:</label></td>
                 <td>
-                    <input type="text" id="txtApellido" name="txtApellido" />
+                    <input type="text" id="txtApellido" name="txtApellido" <?php echo "value='{$apellidoUsuario}'"?>/>
                     <span style="display: none;">*</span>
                 </td>
             </tr>
@@ -48,7 +82,7 @@ require_once("./validarSesion.php");
             <tr>
                 <td><label for="txtNombre">Nombre:</label></td>
                 <td>
-                    <input type="text" id="txtNombre" name="txtNombre" />
+                    <input type="text" id="txtNombre" name="txtNombre" <?php echo "value='{$nombreUsuario}'"?> />
                     <span style="display: none;">*</span>
                 </td>
             </tr>
@@ -56,10 +90,10 @@ require_once("./validarSesion.php");
             <tr>
                 <td><label for="cboSexo">Sexo:</label></td>
                 <td>
-                    <select id="cboSexo" name="cboSexo">
-                            <option value="---" selected>Seleccione</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
+                    <select id="cboSexo" name="cboSexo" >
+                            <option value="---" <?php if($sexoUsuario == null) echo "selected"; ?> >Seleccione</option>
+                            <option value="M" <?php if($sexoUsuario == "M") echo "selected";  ?> >Masculino</option>
+                            <option value="F" <?php if($sexoUsuario == "F") echo "selected"; ?> >Femenino</option>
                     </select>
                     <span style="display: none;">*</span>
                 </td>
@@ -80,7 +114,7 @@ require_once("./validarSesion.php");
             <tr>
                 <td><label for="txtLegajo">Legajo:</label></td>
                 <td>
-                    <input type="number" id="txtLegajo" name="txtLegajo" min="100" max="550">
+                    <input type="number" id="txtLegajo" name="txtLegajo" min="100" max="550" <?php if($legajoUsuario != null){ echo "value='{$legajoUsuario}' readonly"; } ?> />
                     <span style="display: none;">*</span>
                 </td>
             </tr>
@@ -88,7 +122,7 @@ require_once("./validarSesion.php");
             <tr>
                 <td><label for="txtSueldo">Sueldo:</label></td>
                 <td>
-                    <input type="number" name="txtSueldo" id="txtSueldo" min="8000" step="500">
+                    <input type="number" name="txtSueldo" id="txtSueldo" min="8000" step="500" <?php echo "value='{$sueldoUsuario}'" ?>>
                     <span style="display: none;">*</span>
                 </td>
             </tr>
@@ -98,16 +132,16 @@ require_once("./validarSesion.php");
             </tr>
             <tr>
                 <td style="text-align:left; padding-left:50px">
-                    <input type="radio" name="rdoTurno" value="M" id='rdoTurnoMañana' checked>Mañana<br/>
-                    <input type="radio" name="rdoTurno" value="T" id='rdoTurnoTarde'>Tarde<br/>
-                    <input type="radio" name="rdoTurno" value="N" id='rdoTurnoNoche'>Noche<br/>
+                    <input type="radio" name="rdoTurno" value="M" id='rdoTurnoMañana' <?php if($turnoUsuario == null || $turnoUsuario == "M") echo "checked"; ?> >Mañana<br/>
+                    <input type="radio" name="rdoTurno" value="T" id='rdoTurnoTarde' <?php if($turnoUsuario == 'T') echo "checked"; ?> >Tarde<br/>
+                    <input type="radio" name="rdoTurno" value="N" id='rdoTurnoNoche' <?php if($turnoUsuario == 'N') echo "checked"; ?> >Noche<br/>
                 </td>
             </tr>
             <!-- Files -->
             <tr>
                 <td><label for="fileFoto">Foto:</label></td>
                 <td>
-                    <input type="file" name="fileFoto" id="fileFoto">
+                    <input type="file" name="fileFoto" id="fileFoto"  <?php echo "value='{$fotoUsuario}'"  ?> >
                     <span style="display:none">*</span>
                 </td>
             </tr>
