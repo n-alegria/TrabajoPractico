@@ -12,6 +12,7 @@ $legajoUsuario = null;
 $sueldoUsuario = null;
 $turnoUsuario = null;
 $fotoUsuario = null;
+$boton = "Enviar";
 
 if(isset($_POST['hiddenModificar'])){
     $dni = $_POST['hiddenModificar'];
@@ -30,6 +31,7 @@ if(isset($_POST['hiddenModificar'])){
             $sueldoUsuario = $empleado->GetSueldo();
             $turnoUsuario = $empleado->GetTurno();
             $fotoUsuario = $empleado->GetPathFoto();
+            $boton = "Modificar";
             break;
         }
     }
@@ -49,7 +51,8 @@ if(isset($_POST['hiddenModificar'])){
 <body>
     <h2 style="text-align: center;" id="tituloForm"><?php echo $titulo ?></h2>
     <form action="../BACKEND/administracion.php" method="POST" enctype="multipart/form-data" onsubmit="return AdministrarValidaciones()">
-        <table align="center">
+    <input type="hidden" name="hdnModificar" id="hdnModificar">
+    <table align="center">
             <!-- Titulo: Datos Personales -->
             <tr>
                 <td>
@@ -159,7 +162,7 @@ if(isset($_POST['hiddenModificar'])){
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit" value="Enviar" id="btnEnviar" />
+                    <input type="submit" id="btnEnviar" value="<?php echo $boton?>"/>
                 </td>
             </tr>
             <tr>

@@ -1,2 +1,2 @@
-nes - ale - 11223344 - M - 100 - 8000 - M - ./fotos/11223344-ale.JPG
-cos - fer - 44559988 - F - 250 - 9000 - T - ./fotos/44559988-fer.JPG
+juan - ale - 11223344 - M - 100 - 8000 - M - ./fotos/11223344-ale.JPG
+cos - rulo - 44559988 - F - 250 - 9000 - T - ./fotos/44559988-rulo.JPG

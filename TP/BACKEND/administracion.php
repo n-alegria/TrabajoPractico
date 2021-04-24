@@ -9,6 +9,7 @@ $sexo = $_POST["cboSexo"];
 $legajo = $_POST["txtLegajo"];
 $sueldo = $_POST["txtSueldo"];
 $turno = $_POST["rdoTurno"];
+$hdnModificar = $_POST["hdnModificar"];
 
 $path = "./archivos/empleados.txt";
 
@@ -23,6 +24,42 @@ echo "
 
 <h2>Administracion</h2>
 ";
+
+// Si existe el empleado lo borro
+if(isset($hdnModificar)){
+    // ruta del archivo
+    $path = "./archivos/empleados.txt";
+    // Abro el archivo en modo lectura
+    $archivo = fopen($path, "r");
+    // Ejecuto mientras no se llegue al final del archivo
+    while(!feof($archivo)){
+        // Obtengo una fila del archivo, con 'trim' elimino espacios en blanco
+        $empleadoAux = trim(fgets($archivo));
+        if(strlen($empleadoAux) > 0){
+            // Creo un array de empleado con los datos leidos del archivo
+            $arrayEmpelado = explode(" - ", $empleadoAux);
+            // Compruebo que el dni coincida con un empelado del archivo
+            if($dni == $arrayEmpelado[2]){
+                // Creo al empleado con los datos del array
+                $empleadoBorrar = new Empleado($arrayEmpelado[0], $arrayEmpelado[1], $arrayEmpelado[2], $arrayEmpelado[3], $arrayEmpelado[4], $arrayEmpelado[5], $arrayEmpelado[6]);
+                $empleadoBorrar->SetPathFoto($arrayEmpelado[7]);
+                fclose($archivo);
+
+                $fabricaAux = new Fabrica("Cosan", 7);
+                $fabricaAux->TraerDeArchivo("./archivos/empleados.txt");
+
+                if($fabricaAux->EliminarEmpleado($empleadoBorrar)){
+                    unlink($empleadoBorrar->GetPathFoto());
+                    $fabricaAux->GuardarEnArchivo("./archivos/empleados.txt");
+                }
+                break;
+            }
+        }
+    }
+}
+
+
+
 
 // Uso esta ruta para las verificaciones
 $destino = "./fotos/" . $_FILES["fileFoto"]["name"];
