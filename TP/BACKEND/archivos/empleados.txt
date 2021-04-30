@@ -1,2 +1,3 @@
-juan - ale - 11223344 - M - 100 - 8000 - M - ./fotos/11223344-ale.JPG
-cos - rulo - 44559988 - F - 250 - 9000 - T - ./fotos/44559988-rulo.JPG
+11223344 - Jorge - Lopez - M - 150 - 9500 - M - ./fotos/11223344-lopez.JPG
+22334455 - Nicolas - Alegre - M - 200 - 9500 - M - ./fotos/22334455-alegre.JPG
+33445566 - And - Cab - F - 300 - 10000 - M - ./fotos/33445566-cab.JPG

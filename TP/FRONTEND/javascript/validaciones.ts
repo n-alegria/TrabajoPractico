@@ -1,4 +1,6 @@
-function AdministrarValidaciones(){
+/// <reference path="ajax.ts" />
+
+function AdministrarValidaciones(e : Event){
     let dni:number = parseInt((<HTMLInputElement>document.getElementById("txtDni")).value);
     let legajo:number = parseInt((<HTMLInputElement>document.getElementById("txtLegajo")).value);
     let sueldo:number = parseInt((<HTMLInputElement>document.getElementById("txtSueldo")).value);
@@ -69,7 +71,9 @@ function AdministrarValidaciones(){
         AdministrarSpanError("fileFoto", false);
     }
     
-    return retorno;
+    if(!retorno){
+        e.preventDefault();
+    }
     
 }
 
@@ -130,7 +134,7 @@ function ObtenerSueldoMaximo(turnoElegido : string) : number{
 
 ///////////////////////////////////////////////////////////////////////////
 
-function AdministrarValidacionesLogin(){
+function AdministrarValidacionesLogin(e : Event){
     let dni : number = parseInt((<HTMLInputElement>document.getElementById("txtDni")).value);
     if(!ValidarCamposVacios("txtDni") || !ValidarRangoNumerico(dni, 1000000, 55000000)){
         AdministrarSpanError("txtDni", true);
@@ -145,7 +149,9 @@ function AdministrarValidacionesLogin(){
         AdministrarSpanError("txtApellido", false);
     }
 
-    return VerificarValidacionesLogin();
+    if(!VerificarValidacionesLogin()){
+        e.preventDefault();
+    }
 }
 
 function AdministrarSpanError(idcampo : string, mostrar : boolean) : void{
@@ -174,4 +180,40 @@ function VerificarValidacionesLogin() : boolean{
 function AdministrarModificar(dniEmpleado : string) : void{
     (<HTMLInputElement>document.getElementById("hiddenModificar")).value = dniEmpleado;
     (<HTMLFormElement>document.getElementById("formModificar")).submit();
+}
+
+///////////////////////////////////////////////////////////////////////////
+// AJAX
+///////////////////////////////////////////////////////////////////////////
+window.onload = ():void =>{
+    // let ajax = new Ajax();
+    // ajax.Post('./index.php', (resultado:string)=> {
+
+    //     let formulario = (<HTMLDivElement>document.getElementById("formularioEmpleado"));
+
+    //     console.clear();
+    //     console.log(resultado);
+
+    //     formulario.innerHTML = resultado;
+    // },
+    // "",
+    // );
+    let ajaxForm = new XMLHttpRequest();
+    ajaxForm.open('POST', './index.php', true);
+    ajaxForm.send();
+    ajaxForm.onreadystatechange = () =>{
+        if(ajaxForm.readyState == 4 && ajaxForm.status == 200){
+            let formulario = (<HTMLInputElement>document.getElementById('formularioEmpleado'));
+            formulario.innerHTML = ajaxForm.responseText;
+        }
+    }
+    let ajaxMostrar = new XMLHttpRequest();
+    ajaxMostrar.open('POST', './mostrar.php', true);
+    ajaxMostrar.send();
+    ajaxMostrar.onreadystatechange = () =>{
+        if(ajaxMostrar.readyState == 4 && ajaxMostrar.status == 200){
+            let mostrar = (<HTMLInputElement>document.getElementById('mostrarEmpleados'));
+            mostrar.innerHTML = ajaxMostrar.responseText;
+        }
+    }
 }

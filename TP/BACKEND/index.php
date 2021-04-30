@@ -50,7 +50,7 @@ if(isset($_POST['hiddenModificar'])){
 
 <body>
     <h2 style="text-align: center;" id="tituloForm"><?php echo $titulo ?></h2>
-    <form action="../BACKEND/administracion.php" method="POST" enctype="multipart/form-data" onsubmit="return AdministrarValidaciones()">
+    <form action="../BACKEND/administracion.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="hdnModificar" id="hdnModificar">
     <table align="center">
             <!-- Titulo: Datos Personales -->
@@ -162,14 +162,14 @@ if(isset($_POST['hiddenModificar'])){
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit" id="btnEnviar" value="<?php echo $boton?>"/>
+                    <input type="submit"  onClick="AdministrarValidaciones(event)" id="btnEnviar" value="<?php echo $boton?>"/>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>
                     <a href="./cerrarSesion.php">Cerrar Sesion</a>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </form>
 </body>

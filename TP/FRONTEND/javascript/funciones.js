@@ -1,4 +1,56 @@
-function AdministrarValidaciones() {
+var Ajax = /** @class */ (function () {
+    function Ajax() {
+        var _this = this;
+        this.Get = function (ruta, success, params, error) {
+            if (params === void 0) { params = ""; }
+            var parametros = params.length > 0 ? params : "";
+            ruta = params.length > 0 ? ruta + "?" + parametros : ruta;
+            _this.xhr.open('GET', ruta);
+            _this.xhr.send();
+            _this.xhr.onreadystatechange = function () {
+                if (_this.xhr.readyState === Ajax.DONE) {
+                    if (_this.xhr.status === Ajax.OK) {
+                        success(_this.xhr.responseText);
+                    }
+                    else {
+                        if (error !== undefined) {
+                            error(_this.xhr.status);
+                        }
+                    }
+                }
+            };
+        };
+        this.Post = function (ruta, success, params, error) {
+            if (params === void 0) { params = ""; }
+            _this.xhr.open('POST', ruta, true);
+            if (typeof (params) == "string") {
+                _this.xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            }
+            else {
+                _this.xhr.setRequestHeader("enctype", "multipart/form-data");
+            }
+            _this.xhr.send(params);
+            _this.xhr.onreadystatechange = function () {
+                if (_this.xhr.readyState === Ajax.DONE) {
+                    if (_this.xhr.status === Ajax.OK) {
+                        success(_this.xhr.responseText);
+                    }
+                    else {
+                        if (error !== undefined) {
+                            error(_this.xhr.status);
+                        }
+                    }
+                }
+            };
+        };
+        this.xhr = new XMLHttpRequest();
+        Ajax.DONE = 4;
+        Ajax.OK = 200;
+    }
+    return Ajax;
+}());
+/// <reference path="ajax.ts" />
+function AdministrarValidaciones(e) {
     var dni = parseInt(document.getElementById("txtDni").value);
     var legajo = parseInt(document.getElementById("txtLegajo").value);
     var sueldo = parseInt(document.getElementById("txtSueldo").value);
@@ -60,7 +112,9 @@ function AdministrarValidaciones() {
     else {
         AdministrarSpanError("fileFoto", false);
     }
-    return retorno;
+    if (!retorno) {
+        e.preventDefault();
+    }
 }
 function ValidarCamposVacios(idcampo) {
     var retorno = true;
@@ -113,7 +167,7 @@ function ObtenerSueldoMaximo(turnoElegido) {
     return sueldo;
 }
 ///////////////////////////////////////////////////////////////////////////
-function AdministrarValidacionesLogin() {
+function AdministrarValidacionesLogin(e) {
     var dni = parseInt(document.getElementById("txtDni").value);
     if (!ValidarCamposVacios("txtDni") || !ValidarRangoNumerico(dni, 1000000, 55000000)) {
         AdministrarSpanError("txtDni", true);
@@ -127,7 +181,9 @@ function AdministrarValidacionesLogin() {
     else {
         AdministrarSpanError("txtApellido", false);
     }
-    return VerificarValidacionesLogin();
+    if (!VerificarValidacionesLogin()) {
+        e.preventDefault();
+    }
 }
 function AdministrarSpanError(idcampo, mostrar) {
     if (mostrar) {
@@ -153,3 +209,35 @@ function AdministrarModificar(dniEmpleado) {
     document.getElementById("hiddenModificar").value = dniEmpleado;
     document.getElementById("formModificar").submit();
 }
+///////////////////////////////////////////////////////////////////////////
+// AJAX
+///////////////////////////////////////////////////////////////////////////
+window.onload = function () {
+    // let ajax = new Ajax();
+    // ajax.Post('./index.php', (resultado:string)=> {
+    //     let formulario = (<HTMLDivElement>document.getElementById("formularioEmpleado"));
+    //     console.clear();
+    //     console.log(resultado);
+    //     formulario.innerHTML = resultado;
+    // },
+    // "",
+    // );
+    var ajaxForm = new XMLHttpRequest();
+    ajaxForm.open('POST', './index.php', true);
+    ajaxForm.send();
+    ajaxForm.onreadystatechange = function () {
+        if (ajaxForm.readyState == 4 && ajaxForm.status == 200) {
+            var formulario = document.getElementById('formularioEmpleado');
+            formulario.innerHTML = ajaxForm.responseText;
+        }
+    };
+    var ajaxMostrar = new XMLHttpRequest();
+    ajaxMostrar.open('POST', './mostrar.php', true);
+    ajaxMostrar.send();
+    ajaxMostrar.onreadystatechange = function () {
+        if (ajaxMostrar.readyState == 4 && ajaxMostrar.status == 200) {
+            var mostrar = document.getElementById('mostrarEmpleados');
+            mostrar.innerHTML = ajaxMostrar.responseText;
+        }
+    };
+};

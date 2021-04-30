@@ -1,5 +1,6 @@
 <?php
 
+require_once("./validarSesion.php");
 require_once("./Clases/fabrica.php");
 
 $dni = $_POST["txtDni"];

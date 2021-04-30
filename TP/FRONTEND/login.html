@@ -8,8 +8,8 @@
 </head>
 
 <body>
-    <h2>Login</h2>
-    <form action="../BACKEND/verificarUsuario.php" method="POST" onsubmit="return AdministrarValidacionesLogin()">
+    <h2 align="center">Login</h2>
+    <form action="../BACKEND/verificarUsuario.php" method="POST">
         <table align="center">
             <!-- Titulo: Ingreso de credenciales -->
             <tr>
@@ -57,7 +57,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit" value="Enviar">
+                    <input type="submit" value="Enviar" onClick="AdministrarValidacionesLogin(event)">
                 </td>
             </tr>
 

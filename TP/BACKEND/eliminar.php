@@ -1,6 +1,7 @@
 <?php
 
-require_once "./Clases/fabrica.php";
+require_once("./validarSesion.php");   
+require_once("./Clases/fabrica.php");
 
 $legajo = $_GET["legajo"];
 
