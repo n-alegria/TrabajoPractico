@@ -141,7 +141,7 @@ if(isset($_POST['hiddenModificar'])){
             <tr>
                 <td><label for="fileFoto">Foto:</label></td>
                 <td>
-                    <input type="file" name="fileFoto" id="fileFoto"  <?php echo "value='{$fotoUsuario}'"  ?> >
+                    <input type="file" name="fileFoto" id="fileFoto" >
                     <span style="display:none">*</span>
                 </td>
             </tr>
