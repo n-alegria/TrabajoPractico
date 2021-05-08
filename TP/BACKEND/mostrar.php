@@ -6,20 +6,13 @@ require_once("./validarSesion.php");
 $path = "./archivos/empleados.txt";
 $archivo = fopen($path, "r");
 
-
-echo "<!DOCTYPE html>
-<html lang=\"es\">
-<head>
-    <meta charset=\"UTF-8\">
-    <script src='../FRONTEND/javascript/funciones.js'></script>
-    <title>HTML 5 - Listado de Empleados</title>
-</head>
-<body>
-<h2>Listado de Empleados</h2>
-<form action='./index.php' method='POST' id='formModificar'>
+echo"
+<form action='./home.php' method='POST' id='formModificar'>
 <input type='hidden' value='Modificar' id='hiddenModificar' name='hiddenModificar'/>
 </form>
 <table align=\"center\">
+    <tr><td><h2>Listado de Empleados</h2></td>
+    </tr>
     <tr>
         <td>
             <h4>Info</h4>
@@ -43,17 +36,11 @@ while(!feof($archivo)){
         $nuevoEmpleado->SetPathFoto($arrayEmpleado[7]);
         echo "<tr><td>".$nuevoEmpleado->ToString()."</td>";
         echo "<td><img src='" . $nuevoEmpleado->GetPathFoto() . "' style='width:90px;height:90px;'></td> ";
-        echo "<td><a href='eliminar.php?legajo=" . $nuevoEmpleado->GetLegajo() . "'>Eliminar</a></td>";
-        echo "<td><input type='button' value='Modificar' onClick='AdministrarModificar(".$nuevoEmpleado->GetDni().")' /></td></tr>";
+        echo "<td><input type='button' value='Eliminar' onClick='EliminarEmpleado(" . $nuevoEmpleado->GetLegajo() . ")' /></td>";
+        echo "<td><input type='button' value='Modificar' onClick='AdministrarModificar(" . $nuevoEmpleado->GetDni() . ")' /></td></tr>";
         
     }
 }
 fclose($archivo);
-// echo "<tr><td colspan='10'><hr></td></tr>";
-// echo "<tr><td><a href='../BACKEND/index.php'>Alta Empleado</a></td></tr>";
-// echo "<tr><td><a href='./cerrarSesion.php'>Cerrar Sesion</a></td></tr>";
 
-echo "</table>
-</body>
-</html>";
 ?>

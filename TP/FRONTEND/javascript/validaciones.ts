@@ -74,6 +74,9 @@ function AdministrarValidaciones(e : Event){
     if(!retorno){
         e.preventDefault();
     }
+    else{
+        ObtenerDatosUsuario();
+    }
     
 }
 
@@ -186,34 +189,78 @@ function AdministrarModificar(dniEmpleado : string) : void{
 // AJAX
 ///////////////////////////////////////////////////////////////////////////
 window.onload = ():void =>{
-    // let ajax = new Ajax();
-    // ajax.Post('./index.php', (resultado:string)=> {
+    ActualizarPagina();
+}
 
-    //     let formulario = (<HTMLDivElement>document.getElementById("formularioEmpleado"));
+let ActualizarPagina = () =>{
+    ActualizarForm();
+    MostrarEmpleados();
+}
 
-    //     console.clear();
-    //     console.log(resultado);
+function ActualizarForm(){
+    let ajaxForm = new Ajax();
+    ajaxForm.Post('./indice.php', (respuesta:string) =>{
+        let formulario = (<HTMLInputElement>document.getElementById('formularioEmpleado'));
+        formulario.innerHTML = "";
+        formulario.innerHTML = respuesta;
+    },
+    "");
+}
 
-    //     formulario.innerHTML = resultado;
-    // },
-    // "",
-    // );
-    let ajaxForm = new XMLHttpRequest();
-    ajaxForm.open('POST', './index.php', true);
-    ajaxForm.send();
-    ajaxForm.onreadystatechange = () =>{
-        if(ajaxForm.readyState == 4 && ajaxForm.status == 200){
-            let formulario = (<HTMLInputElement>document.getElementById('formularioEmpleado'));
-            formulario.innerHTML = ajaxForm.responseText;
-        }
-    }
-    let ajaxMostrar = new XMLHttpRequest();
-    ajaxMostrar.open('POST', './mostrar.php', true);
-    ajaxMostrar.send();
-    ajaxMostrar.onreadystatechange = () =>{
-        if(ajaxMostrar.readyState == 4 && ajaxMostrar.status == 200){
-            let mostrar = (<HTMLInputElement>document.getElementById('mostrarEmpleados'));
-            mostrar.innerHTML = ajaxMostrar.responseText;
+function MostrarEmpleados(){
+    let ajaxMostrar = new Ajax();
+    ajaxMostrar.Post('./mostrar.php', (respuesta:string)=>{
+        let mostrar = (<HTMLInputElement>document.getElementById('mostrarEmpleados'));
+        mostrar.innerHTML = "";
+        mostrar.innerHTML = respuesta;
+    },
+    "");
+}
+
+function EliminarEmpleado(legajo: string){
+    let ajax = new Ajax();
+    let parametros: string = `legajo=${legajo}`
+
+    ajax.Get("./BACKEND/eliminar.php",
+    (respuesta:string)=>{
+        console.clear();
+        console.log(respuesta);
+        MostrarEmpleados();
+    },
+    parametros,
+    );
+}
+
+function ObtenerDatosUsuario(){
+    let dni :string = (<HTMLInputElement>document.getElementById('txtDni')).value;
+    let apellido :string = (<HTMLInputElement>document.getElementById('txtApellido')).value;
+    let nombre :string = (<HTMLInputElement>document.getElementById('txtNombre')).value;
+    let sexo :string = (<HTMLInputElement>document.getElementById('cboSexo')).value;
+    let legajo :string = (<HTMLInputElement>document.getElementById('txtLegajo')).value;
+    let sueldo :string = (<HTMLInputElement>document.getElementById('txtSueldo')).value;
+    let turno :string = ObtenerTurnoSeleccionado();
+    let foto :any = (<HTMLInputElement>document.getElementById('fileFoto'));
+
+    let form = new FormData();
+
+    form.append('txtDni', dni);
+    form.append('txtNombre', nombre);
+    form.append('txtApellido', apellido);
+    form.append('cboSexo', sexo);
+    form.append('txtLegajo', legajo);
+    form.append('txtSueldo', sueldo);
+    form.append('rdoTurno', turno);
+    form.append('fileFoto', foto.files[0]);
+
+    let ajaxModificar = new XMLHttpRequest();
+
+    ajaxModificar.open("POST", './BACKEND/administracion.php');
+    ajaxModificar.setRequestHeader("enctype","multipart/form-data");
+    ajaxModificar.send(form);
+    ajaxModificar.onreadystatechange = () =>{
+        if(ajaxModificar.status == 200 && ajaxModificar.readyState == 4){
+            console.log(ajaxModificar.responseText);
         }
     }
 }
+

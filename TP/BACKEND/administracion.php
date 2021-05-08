@@ -40,15 +40,14 @@ if(isset($hdnModificar)){
             // Creo un array de empleado con los datos leidos del archivo
             $arrayEmpelado = explode(" - ", $empleadoAux);
             // Compruebo que el dni coincida con un empelado del archivo
-            if($dni == $arrayEmpelado[2]){
+            if($dni == $arrayEmpelado[0]){
                 // Creo al empleado con los datos del array
-                $empleadoBorrar = new Empleado($arrayEmpelado[0], $arrayEmpelado[1], $arrayEmpelado[2], $arrayEmpelado[3], $arrayEmpelado[4], $arrayEmpelado[5], $arrayEmpelado[6]);
+                $empleadoBorrar = new Empleado($arrayEmpelado[1], $arrayEmpelado[2], $arrayEmpelado[0], $arrayEmpelado[3], $arrayEmpelado[4], $arrayEmpelado[5], $arrayEmpelado[6]);
                 $empleadoBorrar->SetPathFoto($arrayEmpelado[7]);
                 fclose($archivo);
 
                 $fabricaAux = new Fabrica("Cosan", 7);
                 $fabricaAux->TraerDeArchivo("./archivos/empleados.txt");
-
                 if($fabricaAux->EliminarEmpleado($empleadoBorrar)){
                     unlink($empleadoBorrar->GetPathFoto());
                     $fabricaAux->GuardarEnArchivo("./archivos/empleados.txt");
@@ -103,6 +102,7 @@ else{
         $fabrica->TraerDeArchivo($path);
         if($fabrica->AgregarEmpleado($nuevoEmpleado)){
             $fabrica->GuardarEnArchivo($path);
+            header("Location: ./home.php");
             echo "<a href='./mostrar.php'>Mostrar</a>";
         }
         else{

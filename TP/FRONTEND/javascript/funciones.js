@@ -115,6 +115,9 @@ function AdministrarValidaciones(e) {
     if (!retorno) {
         e.preventDefault();
     }
+    else {
+        ObtenerDatosUsuario();
+    }
 }
 function ValidarCamposVacios(idcampo) {
     var retorno = true;
@@ -213,31 +216,62 @@ function AdministrarModificar(dniEmpleado) {
 // AJAX
 ///////////////////////////////////////////////////////////////////////////
 window.onload = function () {
-    // let ajax = new Ajax();
-    // ajax.Post('./index.php', (resultado:string)=> {
-    //     let formulario = (<HTMLDivElement>document.getElementById("formularioEmpleado"));
-    //     console.clear();
-    //     console.log(resultado);
-    //     formulario.innerHTML = resultado;
-    // },
-    // "",
-    // );
-    var ajaxForm = new XMLHttpRequest();
-    ajaxForm.open('POST', './index.php', true);
-    ajaxForm.send();
-    ajaxForm.onreadystatechange = function () {
-        if (ajaxForm.readyState == 4 && ajaxForm.status == 200) {
-            var formulario = document.getElementById('formularioEmpleado');
-            formulario.innerHTML = ajaxForm.responseText;
-        }
-    };
-    var ajaxMostrar = new XMLHttpRequest();
-    ajaxMostrar.open('POST', './mostrar.php', true);
-    ajaxMostrar.send();
-    ajaxMostrar.onreadystatechange = function () {
-        if (ajaxMostrar.readyState == 4 && ajaxMostrar.status == 200) {
-            var mostrar = document.getElementById('mostrarEmpleados');
-            mostrar.innerHTML = ajaxMostrar.responseText;
-        }
-    };
+    ActualizarPagina();
 };
+var ActualizarPagina = function () {
+    ActualizarForm();
+    MostrarEmpleados();
+};
+function ActualizarForm() {
+    var ajaxForm = new Ajax();
+    ajaxForm.Post('./indice.php', function (respuesta) {
+        var formulario = document.getElementById('formularioEmpleado');
+        formulario.innerHTML = "";
+        formulario.innerHTML = respuesta;
+    }, "");
+}
+function MostrarEmpleados() {
+    var ajaxMostrar = new Ajax();
+    ajaxMostrar.Post('./mostrar.php', function (respuesta) {
+        var mostrar = document.getElementById('mostrarEmpleados');
+        mostrar.innerHTML = "";
+        mostrar.innerHTML = respuesta;
+    }, "");
+}
+function EliminarEmpleado(legajo) {
+    var ajax = new Ajax();
+    var parametros = "legajo=" + legajo;
+    ajax.Get("./BACKEND/eliminar.php", function (respuesta) {
+        console.clear();
+        console.log(respuesta);
+        MostrarEmpleados();
+    }, parametros);
+}
+function ObtenerDatosUsuario() {
+    var dni = document.getElementById('txtDni').value;
+    var apellido = document.getElementById('txtApellido').value;
+    var nombre = document.getElementById('txtNombre').value;
+    var sexo = document.getElementById('cboSexo').value;
+    var legajo = document.getElementById('txtLegajo').value;
+    var sueldo = document.getElementById('txtSueldo').value;
+    var turno = ObtenerTurnoSeleccionado();
+    var foto = document.getElementById('fileFoto').value;
+    var form = new FormData();
+    form.append('txtDni', dni);
+    form.append('txtNombre', nombre);
+    form.append('txtApellido', apellido);
+    form.append('cboSexo', sexo);
+    form.append('txtLegajo', legajo);
+    form.append('txtSueldo', sueldo);
+    form.append('rdoTurno', turno);
+    form.append('fileFoto', foto);
+    var ajaxModificar = new XMLHttpRequest();
+    ajaxModificar.open("POST", './BACKEND/administracion.php');
+    ajaxModificar.setRequestHeader("enctype", "multipart/form-data");
+    ajaxModificar.send(form);
+    ajaxModificar.onreadystatechange = function () {
+        if (ajaxModificar.status == 200 && ajaxModificar.readyState == 4) {
+            console.log(ajaxModificar.responseText);
+        }
+    };
+}
