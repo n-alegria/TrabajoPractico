@@ -76,7 +76,7 @@ class Fabrica implements IArchivo{
                 // Con 'explode()' divido una cadena de acuerdo a un separador pasado por parametro, retorna un array
                 $arrayEmpleado = explode(" - ", $unEmpleado);
                 // Creo un nuevo empleado y lo agrego a la fabrica
-                $nuevoEmpleado = new Empleado($arrayEmpleado[0], $arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[3],$arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
+                $nuevoEmpleado = new Empleado($arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[0], $arrayEmpleado[3],$arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
                 $nuevoEmpleado->SetPathFoto($arrayEmpleado[7]);
                 $this->AgregarEmpleado($nuevoEmpleado);
             }

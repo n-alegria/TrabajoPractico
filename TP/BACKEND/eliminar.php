@@ -1,14 +1,13 @@
 <?php
 
-require_once "./Clases/fabrica.php";
+require_once("./validarSesion.php");   
+require_once("./Clases/fabrica.php");
 
 $legajo = $_GET["legajo"];
 
-$path = "./archivos/empleados.txt";
-$modo = "r";
 $bandera = false;
 
-$archivo = fopen($path, $modo);
+$archivo = fopen("./archivos/empleados.txt",'r');
 
 while(!feof($archivo)){
     $unEmpleado = trim(fgets($archivo));
@@ -31,13 +30,13 @@ echo "<!DOCTYPE html>
 <body>";
 
 if($bandera){
-    $empleado = new Empleado($arrayEmpleado[0], $arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
+    $empleado = new Empleado($arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[0], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
     $empleado->SetPathFoto($arrayEmpleado[7]);
     $fabrica = new Fabrica("Cosan", 7);
-    $fabrica->TraerDeArchivo($path);
+    $fabrica->TraerDeArchivo("./archivos/empleados.txt");
     if($fabrica->EliminarEmpleado($empleado)){
         unlink($empleado->GetPathFoto());
-        $fabrica->GuardarEnArchivo($path);
+        $fabrica->GuardarEnArchivo("./archivos/empleados.txt");
         echo "<b>Se elimino con exito el empleado</b><br/>";
     }
     else{
