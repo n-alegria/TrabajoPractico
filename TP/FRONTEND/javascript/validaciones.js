@@ -132,7 +132,7 @@ function AdministrarValidacionesLogin(e) {
         e.preventDefault();
     }
     else {
-        ObtenerDatosUsuario();
+        AltaUsuario();
     }
 }
 function AdministrarSpanError(idcampo, mostrar) {
@@ -155,6 +155,8 @@ function VerificarValidacionesLogin() {
     return retorno;
 }
 ///////////////////////////////////////////////////////////////////////////
+// Funcion Modificar
+///////////////////////////////////////////////////////////////////////////
 function AdministrarModificar(dniEmpleado) {
     document.getElementById("hiddenModificar").value = dniEmpleado;
     document.getElementById("formModificar").submit();
@@ -171,7 +173,7 @@ var ActualizarPagina = function () {
 };
 function ActualizarForm() {
     var ajax = new Ajax();
-    ajax.Post('./indice.php', function (respuesta) {
+    ajax.Post('./index.php', function (respuesta) {
         var formulario = document.getElementById('formularioEmpleado');
         formulario.innerHTML = respuesta;
     }, "");
@@ -192,7 +194,7 @@ function EliminarEmpleado(legajo) {
         MostrarEmpleados();
     }, parametros);
 }
-function ObtenerDatosUsuario() {
+function AltaUsuario() {
     if (AdministrarValidaciones()) {
         var dni = document.getElementById('txtDni').value;
         var apellido = document.getElementById('txtApellido').value;
@@ -223,4 +225,13 @@ function ObtenerDatosUsuario() {
             }
         };
     }
+}
+function ModificarUsuario(dni) {
+    var ajaxModificar = new Ajax();
+    var parametro = "hiddenModificar=" + dni;
+    ajaxModificar.Post('./index.php', function (respuesta) {
+        console.clear();
+        var formulario = document.getElementById('formularioEmpleado');
+        formulario.innerHTML = respuesta;
+    }, parametro);
 }

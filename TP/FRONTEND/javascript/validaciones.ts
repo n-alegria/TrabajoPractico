@@ -150,7 +150,7 @@ function AdministrarValidacionesLogin(e : Event){
         e.preventDefault();
     }
     else{
-        ObtenerDatosUsuario();
+        AltaUsuario();
     }
 }
 
@@ -176,6 +176,8 @@ function VerificarValidacionesLogin() : boolean{
 }
 
 ///////////////////////////////////////////////////////////////////////////
+// Funcion Modificar
+///////////////////////////////////////////////////////////////////////////
 
 function AdministrarModificar(dniEmpleado : string) : void{
     (<HTMLInputElement>document.getElementById("hiddenModificar")).value = dniEmpleado;
@@ -198,7 +200,7 @@ let ActualizarPagina = ():void =>{
 
 function ActualizarForm(){
     let ajax = new Ajax();
-    ajax.Post('./indice.php', (respuesta:string) =>{
+    ajax.Post('./index.php', (respuesta:string) =>{
         let formulario = (<HTMLInputElement>document.getElementById('formularioEmpleado'));
         formulario.innerHTML = respuesta;
     },
@@ -228,7 +230,7 @@ function EliminarEmpleado(legajo: string){
     );
 }
 
-function ObtenerDatosUsuario(){
+function AltaUsuario(){
     if(AdministrarValidaciones()){
         let dni :string = (<HTMLInputElement>document.getElementById('txtDni')).value;
         let apellido :string = (<HTMLInputElement>document.getElementById('txtApellido')).value;
@@ -262,5 +264,17 @@ function ObtenerDatosUsuario(){
             }
         }
     }
-    
+}
+
+function ModificarUsuario(dni:string){
+    let ajaxModificar = new Ajax();
+    let parametro = `hiddenModificar=${dni}`;
+    ajaxModificar.Post('./index.php',
+    (respuesta:string)=>{
+        console.clear();
+        let formulario = (<HTMLInputElement>document.getElementById('formularioEmpleado'));
+        formulario.innerHTML = respuesta;
+    },
+    parametro);
+
 }

@@ -38,8 +38,8 @@ abstract class Persona
     public abstract function Hablar($idioma);
 
     public function ToString(){
-        # dni - nombre - apellido - sexo
-        return $this->GetDni() . " - " . ucfirst($this->GetNombre()) . " - " . ucfirst($this->GetApellido()) . " - " . $this->GetSexo();
+        # nombre - apellido - dni - sexo
+        return ucfirst($this->GetNombre()) . " - " . ucfirst($this->GetApellido()) . " - " . $this->GetDni() . " - " .$this->GetSexo();
     }
 }
 ?>

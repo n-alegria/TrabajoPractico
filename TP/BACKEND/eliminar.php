@@ -15,6 +15,7 @@ while(!feof($archivo)){
     $unEmpleado = trim(fgets($archivo));
     if(strlen($unEmpleado) > 0){
         $arrayEmpleado = explode(" - ", $unEmpleado);
+        var_dump($arrayEmpleado);
         if($legajo == $arrayEmpleado[4]){
             $bandera = true;
             break;
@@ -24,7 +25,7 @@ while(!feof($archivo)){
 fclose($archivo);
 
 if($bandera){
-    $empleado = new Empleado($arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[0], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
+    $empleado = new Empleado($arrayEmpleado[0], $arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
     $empleado->SetPathFoto($arrayEmpleado[7]);
     $fabrica = new Fabrica("Cosan", 7);
     $fabrica->TraerDeArchivo("./archivos/empleados.txt");

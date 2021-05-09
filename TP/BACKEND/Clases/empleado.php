@@ -50,7 +50,7 @@ class Empleado extends Persona{
 
     public function ToString()
     {
-        ## dni - nombre - apellido - sexo - legajo - turno - pathFoto
+        ## nombre - apellido - dni - sexo - legajo - sueldo - turno - pathFoto
         return parent::ToString(). " - " . $this->GetLegajo() . " - " . $this->GetSueldo() . " - " . $this->GetTurno() . " - " . $this->GetPathFoto();
     }
 }
