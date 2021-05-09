@@ -10,7 +10,6 @@ $sexo = $_POST["cboSexo"];
 $legajo = $_POST["txtLegajo"];
 $sueldo = $_POST["txtSueldo"];
 $turno = $_POST["rdoTurno"];
-// $hdnModificar = $_POST["hdnModificar"];
 
 $path = "./archivos/empleados.txt";
 
@@ -43,6 +42,17 @@ else{
         $uploadOk = FALSE;
     }
     if($uploadOk){
+        $fabrica = new Fabrica("Cosan", 7);
+        $fabrica->TraerDeArchivo($path);
+        foreach ($fabrica->GetEmpleados() as $empleado) {
+            if($empleado->GetDni() == $dni){
+                $fabrica->EliminarEmpleado($empleado);
+                $fabrica->GuardarEnArchivo($path);
+                unlink($empleado->GetPathFoto());
+                break;
+            }
+        }
+        
         $pathDestino = "./fotos/" . $dni . "-" . "$apellido" . "." . $tipoArchivo;
         
         $nuevoEmpleado = new Empleado($nombre, $apellido, $dni, $sexo, $legajo, $sueldo, $turno);

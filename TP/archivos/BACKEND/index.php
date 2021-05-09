@@ -38,9 +38,13 @@ if(isset($_POST['hiddenModificar'])){
 
 ?>
 
-
 <table align="center">
 <!-- Titulo: Datos Personales -->
+<tr>
+    <td>
+        <h2><?php echo $titulo ?></h2>
+    </td>
+</tr>
 <tr>
     <td>
         <h4>Datos Personales</h4>
