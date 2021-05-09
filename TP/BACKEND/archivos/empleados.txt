@@ -1,3 +1,2 @@
-11223344 - Jorge - Lopez - M - 150 - 9500 - M - ./fotos/11223344-lopez.JPG
 22334455 - Nicolas - Alegre - M - 200 - 9500 - M - ./fotos/22334455-alegre.JPG
-1000000 - Landa - Lalo - M - 100 - 8000 - M - ./fotos/1000000-lalo.JPG
+1000000 - Las - Lop - M - 100 - 8000 - M - ./fotos/1000000-lop.JPG

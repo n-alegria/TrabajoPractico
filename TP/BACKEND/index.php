@@ -162,7 +162,7 @@ if(isset($_POST['hiddenModificar'])){
             </tr>
             <tr>
                 <td colspan="2" align="right">
-                    <input type="submit"  onClick="AdministrarValidaciones(event)" id="btnEnviar" value="<?php echo $boton?>"/>
+                    <input type="submit"  onClick="ObtenerDatosUsuario()" id="btnEnviar" value="<?php echo $boton?>"/>
                 </td>
             </tr>
             <!-- <tr>

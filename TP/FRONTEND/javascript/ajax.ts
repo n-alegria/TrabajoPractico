@@ -39,10 +39,9 @@ class Ajax
         };
     };
 
-    public Post = (ruta: string, success: Function, params: string | FormData = "", error?: Function):void => 
-    {
+    public Post = (ruta: string, success: Function, params: any = "", error?: Function):void => {
+        let parametros:string = params.length > 0 ? params : "";
         this.xhr.open('POST', ruta, true);
-        
         if(typeof(params) == "string")
         {
             this.xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
@@ -51,20 +50,13 @@ class Ajax
         {
             this.xhr.setRequestHeader("enctype","multipart/form-data");
         }
-        this.xhr.send(params);
-
+        this.xhr.send(parametros);
         this.xhr.onreadystatechange = ():void => {
-
-            if (this.xhr.readyState === Ajax.DONE)
-            {
-                if (this.xhr.status === Ajax.OK)
-                {
+            if (this.xhr.readyState === Ajax.DONE) {
+                if (this.xhr.status === Ajax.OK) {
                     success(this.xhr.responseText);
-                }
-                else
-                {
-                    if (error !== undefined)
-                    {
+                } else {
+                    if (error !== undefined){
                         error(this.xhr.status);
                     }
                 }

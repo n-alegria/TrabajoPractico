@@ -22,6 +22,7 @@ var Ajax = /** @class */ (function () {
         };
         this.Post = function (ruta, success, params, error) {
             if (params === void 0) { params = ""; }
+            var parametros = params.length > 0 ? params : "";
             _this.xhr.open('POST', ruta, true);
             if (typeof (params) == "string") {
                 _this.xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
@@ -29,7 +30,7 @@ var Ajax = /** @class */ (function () {
             else {
                 _this.xhr.setRequestHeader("enctype", "multipart/form-data");
             }
-            _this.xhr.send(params);
+            _this.xhr.send(parametros);
             _this.xhr.onreadystatechange = function () {
                 if (_this.xhr.readyState === Ajax.DONE) {
                     if (_this.xhr.status === Ajax.OK) {

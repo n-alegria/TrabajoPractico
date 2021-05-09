@@ -3,7 +3,9 @@
 require_once("./validarSesion.php");   
 require_once("./Clases/fabrica.php");
 
-$legajo = $_GET["legajo"];
+$legajo = $_GET['legajo'];
+
+var_dump($legajo);
 
 $bandera = false;
 
@@ -21,14 +23,6 @@ while(!feof($archivo)){
 }
 fclose($archivo);
 
-echo "<!DOCTYPE html>
-<html lang=\"es\">
-<head>
-    <meta charset=\"UTF-8\">
-    <title>Eliminar</title>
-</head>
-<body>";
-
 if($bandera){
     $empleado = new Empleado($arrayEmpleado[1], $arrayEmpleado[2], $arrayEmpleado[0], $arrayEmpleado[3], $arrayEmpleado[4], $arrayEmpleado[5], $arrayEmpleado[6]);
     $empleado->SetPathFoto($arrayEmpleado[7]);
@@ -37,21 +31,14 @@ if($bandera){
     if($fabrica->EliminarEmpleado($empleado)){
         unlink($empleado->GetPathFoto());
         $fabrica->GuardarEnArchivo("./archivos/empleados.txt");
-        echo "<b>Se elimino con exito el empleado</b><br/>";
+        echo "Se elimino con exito el empleado";
     }
     else{
-        echo "<b>No se pudo eliminar al empleado</b><br/>";
+        echo "No se pudo eliminar al empleado";
     }
 }
 else{
-    echo "<b>No hay empleado con el legajo ingresado.</b><br/><br/>";
+    echo "No hay empleado con el legajo ingresado.";
 }
 
-echo "<a href=\"./mostrar.php\">Mostrar</a><br/>";
-echo "<a href=\"./index.php\">Alta empleado</a>";
-
-echo "
-</body>
-</html>
-";
 ?>

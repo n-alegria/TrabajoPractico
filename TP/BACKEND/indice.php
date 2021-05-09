@@ -38,7 +38,7 @@ if(isset($_POST['hiddenModificar'])){
 
 ?>
 
-<form action="../BACKEND/administracion.php" method="POST" enctype="multipart/form-data">
+
 <table align="center">
     <!-- Titulo: Datos Personales -->
     <tr>
@@ -149,8 +149,8 @@ if(isset($_POST['hiddenModificar'])){
     </tr>
     <tr>
         <td colspan="2" align="right">
-            <input type="submit"  onClick="AdministrarValidaciones(event)" id="btnEnviar" value="<?php echo $boton?>"/>
+            <input type="submit"  onClick="ObtenerDatosUsuario()" id="btnEnviar" value="<?php echo $boton?>"/>
         </td>
     </tr>
     </table>
-</form>
+
