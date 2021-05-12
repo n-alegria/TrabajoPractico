@@ -5,10 +5,6 @@ require_once("./Clases/AccesoDatos.php");
 
 $legajo = $_GET['legajo'];
 
-var_dump($legajo);
-
-$bandera = false;
-
 $pdo = AccesoDatos::DameUnObjetoAcceso();
 
 $consulta = $pdo->RetornarConsulta("SELECT * FROM empleados WHERE empleados.legajo = :legajo");

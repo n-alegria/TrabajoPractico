@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabajo Practico</title>
+    <style>
+    body{
+        background-color: lightseagreen;
+    }
+    form{
+        border: 1px solid black;
+        width: 40%;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+    
+    <h2 align="center">Login desde Bases de Datos</h2>
+    <form action="../backendBD/verificarUsuario_bd.php" method="POST">
+        <table align="center">
+            <!-- Titulo: Ingreso de credenciales -->
+            <tr>
+                <td>
+                    <h4>Ingreso de credenciales</h4>
+                </td>
+            </tr>
+            <!-- Division horizontal -->
+            <tr>
+                <td colspan="2">
+                    <hr/>
+                </td>
+            </tr>
+            <!-- Input: DNI -->
+            <tr>
+                <td>
+                    <label for="txtDni">DNI:</label>
+                </td>
+                <td>
+                    <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000">
+                    <span style="display: none;">*</span>
+                </td>
+            </tr>
+            <!-- Input: Apellido -->
+            <tr>
+                <td>
+                    <label for="txtApellido">Apellido:</label>
+                </td>
+                <td>
+                    <input type="text" name="txtApellido" id="txtApellido">
+                    <span style="display: none;">*</span>
+                </td>
+            </tr>
+            <!-- Division Horizontal -->
+            <tr>
+                <td colspan="2">
+                    <hr/>
+                </td>
+            </tr>
+            <!-- Botones 'reset' y 'submit' -->
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="reset" value="Limpiar">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="submit" value="Enviar" onClick="AdministrarValidacionesLogin(event)">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+</html>

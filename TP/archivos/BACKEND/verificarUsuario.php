@@ -5,7 +5,7 @@ session_start();
 $dni = $_POST["txtDni"];
 $apellido = ucfirst($_POST["txtApellido"]);
 $existeUsuario = false;
-$path = "./archivos/empleados.txt";
+$path = "./archivos/usuarios.txt";
 
 $archivo = fopen($path, "r");
 
@@ -13,11 +13,11 @@ while(!feof($archivo)){
     $unEmpleado = trim(fgets($archivo));
     if(strlen($unEmpleado) > 0){
         $empleadoAux = explode(" - ", $unEmpleado);
-        if($empleadoAux[2] == $dni && $empleadoAux[1] == $apellido){
+        if($empleadoAux[2] == $dni && $empleadoAux[0] == $apellido){
             $existeUsuario = true;
             $_SESSION["DNIEmpleado"] = $dni;
-            $_SESSION["nombre"] = $empleadoAux[0];
-            $_SESSION["apellido"] = $empleadoAux[1];
+            $_SESSION["nombre"] = $empleadoAux[1];
+            $_SESSION["apellido"] = $empleadoAux[0];
             header("Location: ./home.php");
         }
     }
