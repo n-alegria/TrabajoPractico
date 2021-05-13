@@ -2,7 +2,7 @@
 
 require_once "empleado.php";
 require_once "interfaces.php";
-require_once "./AccesoDatos.php";
+require_once "AccesoDatos.php";
 
 class Fabrica implements IArchivo{
     # Atributos
@@ -100,19 +100,6 @@ class Fabrica implements IArchivo{
         fclose($archivo);
     }
 
-    public static function ListadoPDF(){
-        $listado = array();
-        $pdo = AccesoDatos::DameUnObjetoAcceso();
-        $cursor = $pdo->RetornarConsulta('SELECT * FROM empleados');
-        $cursor->execute();
-        if($cursor->rowCount()){
-            while($user = $cursor->fetch(PDO::FETCH_OBJ)){
-                $userAux = new Empleado($user->nombre, $user->apellido, $user->dni, $user->sexo, $user->legajo, $user->sueldo, $user->turno);
-                array_push($listado, $userAux);
-            }
-        }
-        return $listado;
-    }
 }
 
 ?>

@@ -5,7 +5,7 @@ require_once("./Clases/AccesoDatos.php");
 
 echo"
 <table align=\"center\" style='border-collapse:collapse;'>
-    <tr><td><h2>Listado de Empleados</h2></td>
+    <tr><td colspan='10'><h2>Listado de Empleados</h2></td>
     </tr>
     <tr>
         <td>

@@ -15,7 +15,7 @@ $fotoUsuario = null;
 $boton = "Enviar";
 
 if(isset($_POST['hiddenModificar'])){
-    // $dni = $_POST['hiddenModificar'];
+    $dni = $_POST['hiddenModificar'];
     $pdo = AccesoDatos::DameUnObjetoAcceso();
     $cursor = $pdo->RetornarConsulta("SELECT * FROM empleados WHERE empleados.dni = :dni");
     $cursor->bindParam(":dni", $_POST['hiddenModificar'], PDO::PARAM_INT);
@@ -155,7 +155,7 @@ if(isset($_POST['hiddenModificar'])){
     <td colspan="2" align="right">
         <?php 
         if($boton == 'Enviar'){
-            echo "<input type='submit'  onClick='AltaUsuarioBD()' id='btnEnviar' value='Enviar'/>";
+            echo "<input type='submit'  onClick='AltaUsuarioBD()' id='btnEnviar' value='$boton'/>";
         }
         else if($boton == 'Modificar'){
             echo "<input type='submit'  onClick='ModificarBD()' id='btnEnviar' value='Modificar'/>";

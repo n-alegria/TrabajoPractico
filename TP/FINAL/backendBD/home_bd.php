@@ -1,7 +1,4 @@
-<?php
-require_once("./validarSesion.php");
-
-?>
+<?php require_once("./validarSesion.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +26,11 @@ require_once("./validarSesion.php");
         </tr>
         <tr>
             <td colspan="2" style="border:1px solid black;padding:20px;text-align:right;font-size:25px;font-weight:bold;">
+            <!-- <form action="./composer/pdf.php" method="POST">
+                <input type="hidden" name="pass" value="<?php echo $_SESSION["DNIEmpleado"] ?>">
+                <input type="submit" value="Enviar datos">
+            </form> -->
+                <a style="color:black;margin-right:25px;" target='_blank' href="./pdf.php">Listado PDF</a>
                 <a style="color:black;" href="./cerrarSesion.php">Cerrar Sesion</a>
             </td>
         </tr>

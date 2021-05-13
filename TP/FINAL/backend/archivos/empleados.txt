@@ -1,2 +1,2 @@
-Alexander - Diaz - 33221122 - M - 120 - 9500 - M - ./fotos/1000000-diaz.JPG
-Sebastian - Torrico - 1622252 - M - 100 - 9500 - M - ./fotos/1622252-Torrico.JPG
+Sebastian - Torrico - 1622252 - M - 100 - 9500 - M - ./fotos/1622252-Torrico.jpg
+Alexander - Diaz - 33221122 - M - 120 - 9500 - M - ./fotos/33221122-Diaz.jpg

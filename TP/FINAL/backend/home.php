@@ -29,6 +29,7 @@ require_once("./validarSesion.php");
         </tr>
         <tr>
             <td colspan="2" style="border:1px solid black;padding:20px;text-align:right;font-size:25px;font-weight:bold;">
+                <a style="color:black;margin-right:25px" href="./pdf.php?clave=<?php echo $_SESSION["DNIEmpleado"] ?>">Listado PDF</a>
                 <a style="color:black;" href="./cerrarSesion.php">Cerrar Sesion</a>
             </td>
         </tr>

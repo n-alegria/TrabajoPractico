@@ -4,12 +4,12 @@ require_once("./validarSesion.php");
 require_once("./Clases/AccesoDatos.php");
 
 $dni = $_POST["txtDni"];
-$nombre = $_POST["txtNombre"];
-$apellido = $_POST["txtApellido"];
-$sexo = $_POST["cboSexo"];
+$nombre = ucfirst($_POST["txtNombre"]);
+$apellido = ucfirst($_POST["txtApellido"]);
+$sexo = ucfirst($_POST["cboSexo"]);
 $legajo = $_POST["txtLegajo"];
 $sueldo = $_POST["txtSueldo"];
-$turno = $_POST["rdoTurno"];
+$turno = ucfirst($_POST["rdoTurno"]);
 $modificar = isset($_POST["hiddenModificar"]) ? TRUE : FALSE; 
 
 // Uso esta ruta para las verificaciones
@@ -19,18 +19,17 @@ $uploadOk = TRUE;
 // Que sea una imagen
 $esImagen = getimagesize($_FILES["fileFoto"]["tmp_name"]);
 if(!$esImagen){
-    echo "El archivo no es una imagen<br/>";
+    echo "El archivo no es una imagen";
 }
 else{
     // Extension valida
-    $tipoArchivo = pathinfo($destino, PATHINFO_EXTENSION);
+    $tipoArchivo = strtolower(pathinfo($destino, PATHINFO_EXTENSION));
     // echo "Tipo de archivo: " . $tipoArchivo."<br/>";
-    if($tipoArchivo != "JPG" && $tipoArchivo != "BMP" && $tipoArchivo != "GIF" && $tipoArchivo != "PNG" && $tipoArchivo != "JPEG"){
+    if($tipoArchivo != "jpg" && $tipoArchivo != "bmp" && $tipoArchivo != "gif" && $tipoArchivo != "png" && $tipoArchivo != "jpeg"){
         echo "Solo son permitidas las siguientes extensiones: JPG, JPEG, BMP ,PNG o GIF<br/>";
         $uploadOk = FALSE;
     }
     // Tamaño valido
-    // echo "Tamaño: " . $_FILES["fileFoto"]["size"]."<br/>";
     if($_FILES["fileFoto"]["size"] > 1000000){
         echo "El archivo es muy grande.<br/>";
         $uploadOk = FALSE;
@@ -53,15 +52,14 @@ else{
                 $consulta = $pdo->RetornarConsulta("UPDATE empleados 
                                                     SET nombre = :nombre, apellido = :apellido, sexo = :sexo, sueldo = :sueldo, turno = :turno, foto = :foto
                                                     WHERE empleados.dni = :dni");
-                $consulta->bindParam(":nombre", ucfirst($nombre), PDO::PARAM_STR);
-                $consulta->bindParam(":apellido", ucfirst($apellido), PDO::PARAM_STR);
+                $consulta->bindParam(":nombre", $nombre, PDO::PARAM_STR);
+                $consulta->bindParam(":apellido", $apellido, PDO::PARAM_STR);
                 $consulta->bindParam(":dni", $dni, PDO::PARAM_INT);
-                $consulta->bindParam(":sexo", ucfirst($sexo), PDO::PARAM_STR);
+                $consulta->bindParam(":sexo", $sexo, PDO::PARAM_STR);
                 $consulta->bindParam(":sueldo", $sueldo, PDO::PARAM_INT);
-                $consulta->bindParam(":turno", ucfirst($turno), PDO::PARAM_STR);
+                $consulta->bindParam(":turno", $turno, PDO::PARAM_STR);
                 $consulta->bindParam(":foto", $pathDestino, PDO::PARAM_STR);
-                $consulta->execute();
-                if($consulta->rowCount()){
+                if($consulta->execute()){
                     unlink($pathDestino);
                     move_uploaded_file($_FILES["fileFoto"]["tmp_name"], $pathDestino);
                     echo "Usuario modificado con exito";

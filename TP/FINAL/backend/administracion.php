@@ -24,7 +24,7 @@ if(!$esImagen){
 }
 else{
     // Extension valida
-    $tipoArchivo = pathinfo($destino, PATHINFO_EXTENSION);
+    $tipoArchivo = strtolower(pathinfo($destino, PATHINFO_EXTENSION));
     // echo "Tipo de archivo: " . $tipoArchivo."<br/>";
     if($tipoArchivo != "jpg" && $tipoArchivo != "bmp" && $tipoArchivo != "gif" && $tipoArchivo != "png" && $tipoArchivo != "jpeg"){
         echo "Solo son permitidas las siguientes extensiones: JPG, JPEG, BMP ,PNG o GIF<br/>";
